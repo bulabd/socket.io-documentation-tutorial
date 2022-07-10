@@ -6,12 +6,20 @@ app.get('/', (req, res) => {
   res.sendFile('/home/bulat/lighthouse/socketio-tutorial/index.html');
 });
 
-io.on('connection', (socket) => {
-  console.log('A user connected');
+let clients = 0;
 
-  socket.on('clientEvent', (data) => {
-    console.log(data);
-  });
+io.on('connection', (socket) => {
+
+  clients++;
+
+  socket.emit('newclientconnect', { description: 'Hey, welcome!' });
+  socket.broadcast.emit('newclientconnect', { description: clients + ' clients connected!' });
+
+  // io.sockets.emit('broadcast', { description: clients + ' clients connected!' });
+
+  // socket.on('clientEvent', (data) => {
+  //   console.log(data);
+  // });
 
   // setTimeout(() => {
   //   // socket.send('Sent a message 4 seconds after connection!');
@@ -19,7 +27,13 @@ io.on('connection', (socket) => {
   // }, 4000);
 
   socket.on('disconnect', () => {
-    console.log('A user disconnected');
+    // console.log('A user disconnected');
+
+    clients--;
+
+    socket.broadcast.emit('newclientconnect', { description: clients + ' clients connected!' });
+
+    // io.sockets.emit('broadcast', { description: clients + ' clients connected!' });
   });
 });
 
