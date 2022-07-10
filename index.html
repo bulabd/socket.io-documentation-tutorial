@@ -5,6 +5,9 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
+    // socket.on('message', (data) => {document.write(data)});
+    // socket.on('testerEvent', (data) => {document.write(data.description)});
+    socket.emit('clientEvent', 'Sent an event from the client!');
   </script>
 </head>
 <body>

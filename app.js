@@ -8,6 +8,16 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('A user connected');
+
+  socket.on('clientEvent', (data) => {
+    console.log(data);
+  });
+
+  // setTimeout(() => {
+  //   // socket.send('Sent a message 4 seconds after connection!');
+  //   // socket.emit('testerEvent', { description: 'A custom event named testerEvent!' });
+  // }, 4000);
+
   socket.on('disconnect', () => {
     console.log('A user disconnected');
   });
