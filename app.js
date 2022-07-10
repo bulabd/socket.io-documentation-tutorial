@@ -6,12 +6,17 @@ app.get('/', (req, res) => {
   res.sendFile('/home/bulat/lighthouse/socketio-tutorial/index.html');
 });
 
-
-const nsp = io.of('/my-namespace');
-nsp.on('connection', (socket) => {
-  console.log('someone connected');
-  nsp.emit('hi', 'Hello everyone!');
+let roomno = 1;
+io.on('connection', function(socket){
+  socket.join("room-"+roomno);
+  io.sockets.in("room-"+roomno).emit('connectToRoom', "You are in room no. "+roomno);
 })
+
+// const nsp = io.of('/my-namespace');
+// nsp.on('connection', (socket) => {
+//   console.log('someone connected');
+//   nsp.emit('hi', 'Hello everyone!');
+// })
 
 let clients = 0;
 
