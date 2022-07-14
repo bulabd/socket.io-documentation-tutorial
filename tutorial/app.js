@@ -3,7 +3,7 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 
 app.get('/', (req, res) => {
-  res.sendFile('/home/bulat/lighthouse/socketio-tutorial/index.html');
+  res.sendFile('/home/bulat/lighthouse/socketio-tutorial/tutorial/index.html');
 });
 
 let roomno = 1;
